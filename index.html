@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DK Barber Club | Agendamento Premium</title>
+  <meta name="description" content="Agende seu horário na barbearia de forma rápida, elegante e simples pelo celular." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <section class="phone-card" aria-label="Agenda online DK Barber Club">
+      <header class="hero">
+        <div class="hero-pattern"></div>
+        <div class="hero-topline">
+          <div class="brand-lockup">
+            <div class="brand-badge">DK</div>
+            <div>
+              <span class="mini-label">Agenda online</span>
+              <strong>DK Barber Club</strong>
+            </div>
+          </div>
+          <div class="hero-actions">
+            <span class="status-chip">Aberto hoje</span>
+            <div class="admin-menu-wrap">
+              <button type="button" class="more-menu-button" id="moreMenuButton" aria-label="Abrir menu" aria-haspopup="true" aria-expanded="false">⋮</button>
+              <div class="more-menu-dropdown" id="moreMenuDropdown" hidden>
+                <button type="button" id="openAdminButton" data-open-admin-tab="bookings">
+                  <span>Painel administrativo</span>
+                  <small>Ver agenda e relatórios</small>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-copy">
+          <p class="eyebrow">Barbearia premium</p>
+          <h1>Reserve seu horário em poucos toques.</h1>
+          <p class="hero-text">
+            Escolha o barbeiro, selecione o serviço e confirme pelo WhatsApp com praticidade.
+          </p>
+        </div>
+
+        <div class="hero-metrics" aria-label="Diferenciais da barbearia">
+          <div>
+            <strong>4.9</strong>
+            <span>Avaliação</span>
+          </div>
+          <div>
+            <strong>+1k</strong>
+            <span>Clientes</span>
+          </div>
+          <div>
+            <strong>30min</strong>
+            <span>Atendimento</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="progress-area">
+        <div class="steps-labels" aria-label="Etapas do agendamento">
+          <div class="step-label active" data-step-label="0"><span></span>Profissional</div>
+          <div class="step-label" data-step-label="1"><span></span>Serviço</div>
+          <div class="step-label" data-step-label="2"><span></span>Horário</div>
+          <div class="step-label" data-step-label="3"><span></span>Dados</div>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </section>
+
+      <section class="content-area">
+        <div class="screen active" data-screen="0">
+          <div class="screen-heading">
+            <span class="section-kicker">Passo 1</span>
+            <h2>Escolha o profissional</h2>
+            <p>Selecione com quem você deseja agendar seu atendimento.</p>
+          </div>
+
+          <div id="professionalsList" class="cards-list"></div>
+        </div>
+
+        <div class="screen" data-screen="1">
+          <div class="screen-heading">
+            <span class="section-kicker">Passo 2</span>
+            <h2>Escolha o serviço</h2>
+            <p>Consulte valores, duração e escolha a melhor opção.</p>
+          </div>
+
+          <div id="servicesList" class="cards-list"></div>
+        </div>
+
+        <div class="screen" data-screen="2">
+          <div class="screen-heading">
+            <span class="section-kicker">Passo 3</span>
+            <h2>Escolha dia e horário</h2>
+            <p id="scheduleSubtitle">Horários disponíveis para o profissional escolhido.</p>
+          </div>
+
+          <div id="daysList" class="days-grid"></div>
+          <div class="divider-label">Horários disponíveis</div>
+          <div id="timesList" class="times-grid"></div>
+        </div>
+
+        <div class="screen" data-screen="3">
+          <div class="screen-heading">
+            <span class="section-kicker">Passo 4</span>
+            <h2>Finalize sua reserva</h2>
+            <p>Preencha seus dados para a barbearia identificar o agendamento.</p>
+          </div>
+
+          <form class="client-form" id="clientForm">
+            <label>
+              <span>Nome</span>
+              <div class="input-wrap">
+                <span class="input-icon">Nome</span>
+                <input type="text" id="clientName" placeholder="Digite seu nome" autocomplete="name" />
+              </div>
+            </label>
+
+            <label>
+              <span>WhatsApp</span>
+              <div class="input-wrap">
+                <span class="input-icon">+55</span>
+                <input type="tel" id="clientPhone" placeholder="(38) 9 9999-9999" autocomplete="tel" />
+              </div>
+            </label>
+          </form>
+
+          <div class="summary-card">
+            <span class="summary-title">Resumo da reserva</span>
+            <p id="summaryProfessional"></p>
+            <p id="summaryService"></p>
+            <p id="summaryDate"></p>
+          </div>
+        </div>
+
+        <div class="screen confirmation-screen" data-screen="4">
+          <div class="success-icon">✓</div>
+          <p class="eyebrow">Agendamento recebido</p>
+          <h2>Reserva registrada com sucesso.</h2>
+          <p>
+            Para concluir, envie a confirmação pelo WhatsApp. A barbearia receberá todos os dados do agendamento e o link de cancelamento, caso precise.
+          </p>
+
+          <div class="summary-card confirmation-summary">
+            <span class="summary-title">Resumo do agendamento</span>
+            <p id="finalProfessional"></p>
+            <p id="finalService"></p>
+            <p id="finalDate"></p>
+            <p id="finalClient"></p>
+          </div>
+
+          <a id="whatsappLink" class="whatsapp-button" href="#" target="_blank" rel="noopener">
+            Enviar confirmação pelo WhatsApp
+          </a>
+
+          <a id="cancelLink" class="cancel-button" href="#" target="_blank" rel="noopener">
+            Cancelar agendamento
+          </a>
+
+          <p class="cancel-help-text">
+            Caso precise cancelar depois, use o botão acima para avisar a barbearia com todos os dados do agendamento.
+          </p>
+
+          <button type="button" class="outline-full-button" id="newBookingButton">
+            Fazer outro agendamento
+          </button>
+        </div>
+      </section>
+
+      <footer class="footer-actions" id="footerActions">
+        <div class="location-line">Carbonita/MG · Atendimento exclusivo com hora marcada</div>
+
+        <div class="nav-buttons">
+          <button type="button" class="secondary-button" id="backButton">Voltar</button>
+          <button type="button" class="primary-button" id="nextButton">
+            Continuar <span>›</span>
+          </button>
+        </div>
+
+        <div class="social-links">
+          <a href="#" aria-label="Instagram">Instagram</a>
+          <a href="#" aria-label="WhatsApp">WhatsApp</a>
+        </div>
+      </footer>
+    </section>
+
+
+    <section class="admin-login-overlay" id="adminLoginOverlay" aria-hidden="true" hidden>
+      <div class="admin-login-backdrop" data-close-admin-login></div>
+      <div class="admin-login-card" role="dialog" aria-modal="true" aria-labelledby="adminLoginTitle">
+        <button type="button" class="admin-login-close" id="closeAdminLoginButton" aria-label="Fechar login">×</button>
+        <div class="admin-login-logo" aria-hidden="true"></div>
+        <span class="admin-eyebrow">Acesso restrito</span>
+        <h2 id="adminLoginTitle">Login administrativo</h2>
+        <p>Informe o e-mail e a senha cadastrados no Supabase para acessar a agenda, relatórios e controles internos da barbearia.</p>
+
+        <form class="admin-login-form" id="adminLoginForm">
+          <label>
+            <span>E-mail</span>
+            <input type="email" id="adminUsername" autocomplete="email" placeholder="admin@email.com" required />
+          </label>
+          <label>
+            <span>Senha</span>
+            <input type="password" id="adminPassword" autocomplete="current-password" placeholder="Digite a senha" required />
+          </label>
+          <p class="admin-login-error" id="adminLoginMessage" aria-live="polite"></p>
+          <button type="submit" class="admin-primary-button full" id="adminLoginSubmitButton">Entrar no painel</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="admin-panel-overlay" id="embeddedAdminPanel" aria-hidden="true">
+      <div class="admin-overlay-backdrop" data-close-admin></div>
+      <div class="admin-shell embedded-admin-shell" role="dialog" aria-modal="true" aria-labelledby="adminPanelTitle">
+        <section class="admin-hero" aria-label="Painel administrativo DK Barber Club">
+          <div class="admin-hero-pattern"></div>
+          <div class="admin-topbar">
+            <div class="admin-brand">
+              <div class="admin-logo" aria-hidden="true"></div>
+              <div>
+                <span class="admin-eyebrow">DK Barber Club</span>
+                <h1 id="adminPanelTitle">Painel administrativo</h1>
+                <p>Controle reservas, acompanhe faturamento e visualize relatórios sem sair da agenda.</p>
+              </div>
+            </div>
+
+            <div class="admin-actions-top">
+              <button class="admin-secondary-link" type="button" id="logoutAdminButton">Sair</button>
+              <button class="admin-secondary-link" type="button" id="closeAdminButton" onclick="window.closeEmbeddedAdminPanel && window.closeEmbeddedAdminPanel(); return false;">Fechar painel</button>
+              <button class="admin-primary-button" type="button" id="exportAllButton">Exportar CSV</button>
+            </div>
+          </div>
+
+          <div class="admin-tabs" role="tablist" aria-label="Navegação do painel">
+            <button class="admin-tab active" type="button" data-admin-tab="dashboard">Visão geral</button>
+            <button class="admin-tab" type="button" data-admin-tab="bookings">Agendamentos</button>
+            <button class="admin-tab" type="button" data-admin-tab="reports">Relatórios</button>
+          </div>
+        </section>
+
+        <section class="admin-panel active" data-admin-panel="dashboard">
+          <div class="metrics-grid" aria-label="Resumo financeiro e operacional">
+            <article class="metric-card primary-metric">
+              <span>Faturamento hoje</span>
+              <strong id="todayRevenue">R$ 0,00</strong>
+              <small>Atendimentos concluídos</small>
+            </article>
+            <article class="metric-card">
+              <span>Serviços feitos hoje</span>
+              <strong id="todayCount">0</strong>
+              <small id="todayCountHelp">Nenhuma reserva hoje</small>
+            </article>
+            <article class="metric-card">
+              <span>Faturamento da semana</span>
+              <strong id="weekRevenue">R$ 0,00</strong>
+              <small id="weekCountHelp">0 serviços feitos</small>
+            </article>
+            <article class="metric-card">
+              <span>Faturamento do mês</span>
+              <strong id="monthRevenue">R$ 0,00</strong>
+              <small id="monthCountHelp">0 serviços</small>
+            </article>
+          </div>
+
+          <div class="dashboard-grid">
+            <article class="admin-card">
+              <div class="card-heading">
+                <div>
+                  <span class="section-kicker">Hoje</span>
+                  <h2>Próximos horários</h2>
+                </div>
+                <button class="ghost-button" type="button" data-go-admin-tab="bookings">Ver todos</button>
+              </div>
+              <div class="booking-list compact" id="todayBookingsList"></div>
+            </article>
+
+            <article class="admin-card">
+              <div class="card-heading">
+                <div>
+                  <span class="section-kicker">Serviços</span>
+                  <h2>Mais vendidos no período</h2>
+                </div>
+              </div>
+              <div class="service-ranking" id="dashboardServiceRanking"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="admin-panel" data-admin-panel="bookings">
+          <article class="admin-card">
+            <div class="card-heading with-border">
+              <div>
+                <span class="section-kicker">Agenda</span>
+                <h2>Cortes agendados</h2>
+                <p>Consulte os dados enviados pelo cliente na ficha de cadastro e atualize o status do atendimento.</p>
+              </div>
+            </div>
+
+            <div class="filters-grid">
+              <label>
+                <span>Buscar</span>
+                <input type="search" id="bookingSearch" placeholder="Nome, telefone, serviço ou profissional" />
+              </label>
+              <label>
+                <span>Status</span>
+                <select id="statusFilter">
+                  <option value="all">Todos</option>
+                  <option value="Pendente">Pendente</option>
+                  <option value="Confirmado">Confirmado</option>
+                  <option value="Concluído">Concluído</option>
+                  <option value="Cancelado">Cancelado</option>
+                </select>
+              </label>
+              <label>
+                <span>De</span>
+                <input type="date" id="dateStartFilter" />
+              </label>
+              <label>
+                <span>Até</span>
+                <input type="date" id="dateEndFilter" />
+              </label>
+            </div>
+
+            <div class="table-wrap">
+              <table class="bookings-table">
+                <thead>
+                  <tr>
+                    <th>Data e horário</th>
+                    <th>Cliente</th>
+                    <th>Serviço</th>
+                    <th>Profissional</th>
+                    <th>Valor</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="bookingsTableBody"></tbody>
+              </table>
+            </div>
+
+            <div class="mobile-bookings" id="mobileBookingsList"></div>
+            <div class="empty-state" id="emptyBookingsState">
+              <strong>Nenhum agendamento encontrado.</strong>
+              <p>Quando uma reserva for finalizada no site, ela aparecerá aqui automaticamente neste navegador.</p>
+            </div>
+          </article>
+
+          <article class="admin-card manual-card">
+            <details>
+              <summary>Adicionar agendamento manual</summary>
+              <form class="manual-form" id="manualBookingForm">
+                <label>
+                  <span>Nome do cliente</span>
+                  <input type="text" id="manualClientName" placeholder="Ex.: João Silva" required />
+                </label>
+                <label>
+                  <span>WhatsApp</span>
+                  <input type="tel" id="manualClientPhone" placeholder="(38) 9 9999-9999" required />
+                </label>
+                <label>
+                  <span>Profissional</span>
+                  <select id="manualProfessional" required></select>
+                </label>
+                <label>
+                  <span>Serviço</span>
+                  <select id="manualService" required></select>
+                </label>
+                <label>
+                  <span>Data</span>
+                  <input type="date" id="manualDate" required />
+                </label>
+                <label>
+                  <span>Horário</span>
+                  <select id="manualTime" required></select>
+                </label>
+                <label>
+                  <span>Status</span>
+                  <select id="manualStatus">
+                    <option value="Pendente">Pendente</option>
+                    <option value="Confirmado">Confirmado</option>
+                    <option value="Concluído">Concluído</option>
+                    <option value="Cancelado">Cancelado</option>
+                  </select>
+                </label>
+                <button type="submit" class="admin-primary-button full">Salvar agendamento</button>
+              </form>
+            </details>
+          </article>
+        </section>
+
+        <section class="admin-panel" data-admin-panel="reports">
+          <article class="admin-card">
+            <div class="card-heading with-border">
+              <div>
+                <span class="section-kicker">Relatórios</span>
+                <h2>Faturamento e quantidade de serviços</h2>
+                <p>Visualize o desempenho diário, semanal ou mensal da barbearia.</p>
+              </div>
+              <button class="admin-primary-button" type="button" id="exportReportButton">Exportar relatório</button>
+            </div>
+
+            <div class="report-controls">
+              <label>
+                <span>Tipo de relatório</span>
+                <select id="reportPeriod">
+                  <option value="daily">Diário</option>
+                  <option value="weekly">Semanal</option>
+                  <option value="monthly">Mensal</option>
+                </select>
+              </label>
+              <label>
+                <span>Data de referência</span>
+                <input type="date" id="reportDate" />
+              </label>
+            </div>
+
+            <div class="period-summary-grid" id="periodSummaryCards" aria-label="Resumo diário, semanal e mensal"></div>
+
+            <div class="report-range" id="reportRangeText"></div>
+
+            <div class="metrics-grid report-metrics">
+              <article class="metric-card primary-metric">
+                <span>Faturamento realizado</span>
+                <strong id="reportRevenue">R$ 0,00</strong>
+                <small>Somente status Concluído</small>
+              </article>
+              <article class="metric-card">
+                <span>Serviços feitos</span>
+                <strong id="reportCount">0</strong>
+                <small id="reportCountHelp">No período selecionado</small>
+              </article>
+              <article class="metric-card">
+                <span>Ticket médio</span>
+                <strong id="reportAverageTicket">R$ 0,00</strong>
+                <small>Faturamento dividido por serviços</small>
+              </article>
+              <article class="metric-card danger-metric">
+                <span>Cancelamentos</span>
+                <strong id="reportCanceled">0</strong>
+                <small>Não entram no faturamento</small>
+              </article>
+            </div>
+
+            <div class="report-grid">
+              <div>
+                <h3>Por serviço</h3>
+                <div id="serviceReportList" class="report-list"></div>
+              </div>
+              <div>
+                <h3>Por profissional</h3>
+                <div id="professionalReportList" class="report-list"></div>
+              </div>
+            </div>
+          </article>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Preencha estes dados caso o projeto ainda não crie um cliente Supabase global.
+    // A anon key é pública; nunca coloque a service_role key no front-end.
+    window.DK_SUPABASE_CONFIG = window.DK_SUPABASE_CONFIG || {
+      url: "https://grtprfkcoozhrkeetlbt.supabase.co",
+      anonKey: "sb_publishable_mApPhHVMrvjUsH5oqvYU0A_UUWW3irc",
+      allowedEmails: []
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
+</body>
+</html>
